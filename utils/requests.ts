@@ -1,6 +1,11 @@
 const API_KEY = process.env.API_KEY;
 
 interface Data {
+  [key: string]: {
+    title: string;
+    url: string;
+  };
+
   fetchTrending: {
     title: string;
     url: string;
