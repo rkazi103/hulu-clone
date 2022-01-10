@@ -7,22 +7,6 @@ import APIResult from "../types/APIResult";
 import MovieListResult from "../types/MovieListResult";
 import data from "../utils/requests";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const genre = context.query.genre;
-
-  const request: APIResult = await fetch(
-    `https://api.themoviedb.org/3/${
-      data[genre as string]?.url || data.fetchTrending.url
-    }`
-  ).then((res) => res.json());
-
-  return {
-    props: {
-      results: request.results,
-    },
-  };
-};
-
 type HomeProps = {
   results: MovieListResult[];
 };
@@ -44,3 +28,19 @@ const Home = ({ results }: HomeProps) => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const genre = context.query.genre;
+
+  const request: APIResult = await fetch(
+    `https://api.themoviedb.org/3/${
+      data[genre as string]?.url || data.fetchTrending.url
+    }`
+  ).then((res) => res.json());
+
+  return {
+    props: {
+      results: request.results,
+    },
+  };
+};
