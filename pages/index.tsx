@@ -30,17 +30,19 @@ const Home = ({ results }: HomeProps) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const genre = context.query.genre;
+  const genre = context.query.genre as string;
 
   const request: APIResult = await fetch(
-    `https://api.themoviedb.org/3/${
-      data[genre as string]?.url || data.fetchTrending.url
-    }`
-  ).then((res) => res.json());
+    `https://api.themoviedb.org/3${data[genre]?.url || data.fetchTrending.url}`
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+
+  const results = request.results as MovieListResult[];
 
   return {
     props: {
-      results: request.results,
+      results,
     },
   };
 };

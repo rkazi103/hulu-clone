@@ -13,4 +13,6 @@ export default interface MovieListResult {
   vote_count: number;
   video: boolean;
   vote_average: number;
+  name: string;
+  first_air_date: string;
 }
